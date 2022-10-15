@@ -1,5 +1,5 @@
 # Hello-world
-Well this is just a dummy repo I use for testing diff git commands.
+Well this is just a dummy repo I use for testing diff git commands and noting down code snippets. 
 
 Yeah pretty much it.
 
