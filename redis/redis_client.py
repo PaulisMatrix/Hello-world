@@ -12,13 +12,22 @@ class RedisClient(object):
         self.db = os.getenv("REDIS_DB")
         self.password = os.getenv("REDIS_PASSWORD")
 
-        self.connection = redis.StrictRedis(
+        # use connection pooling
+        pool = redis.ConnectionPool(
             host=self.host,
             port=self.port,
             db=self.db,
             password=self.password,
             decode_responses=True,
         )
+        # max_connections is max number of connections available in a pool.
+        # socket_timeout is operation timeout like client connecting to the socket or reading/writing from a socket.
+        self.connection = redis.StrictRedis(
+            connection_pool=pool, max_connections=10, socket_timeout=100
+        )
+        # set idle connections timeout to 100secs
+        # so if a connection is idle for more than 240secs, close it.
+        self.connection.config_set(name="timeout", value=240)
 
     def __str__(self) -> str:
         print("Redis settings:\n")
