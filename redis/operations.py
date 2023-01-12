@@ -19,3 +19,8 @@ class Operations(ABC):
     def expire_at(self, when, *args, **kwargs):
         """expires the key(not possible to expire child keys(field value pairs)) given a unix timestamp"""
         pass
+
+    @abstractmethod
+    def hdel(self, keys, *args, **kwargs):
+        """expires the keys corresponding to the has value"""
+        pass

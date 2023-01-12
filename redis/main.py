@@ -22,11 +22,14 @@ class RedisTesting(Operations):
             print(f"{self.hash_name} HAS EXPIRED!!!!")
         else:
             print("**YOUR DATA**: ", json.loads(data))
-            print("\nKEY HASN'T BEEN EXPIRED YET!!!")
 
     def expire_at(self, when, *args, **kwargs):
+        print("**Expiring the key**", resp)
         resp = self.redis_client.expireat(name=self.hash_name, when=when, nx_=True)
-        print("**Expiring the key**",resp)
+
+    def hdel(self, keys, *args, **kwargs):
+        print(f"Deleting keys:{keys} mapped at hash value:{self.hash_name}")
+        self.redis_client.hdel(name=self.hash_name, keys=keys)
 
 
 if __name__ == "__main__":
@@ -48,3 +51,7 @@ if __name__ == "__main__":
 
     # check if expired or not
     test.get(key=key)
+
+    keys = []
+    keys.append(key)
+    test.hdel(keys=keys)

@@ -67,3 +67,7 @@ class RedisClient(object):
         lt_: bool = False,
     ):
         return self.connection.expireat(name, when)
+
+    def hdel(self, name, keys):
+        for key in keys:
+            self.connection.hdel(name, key)
