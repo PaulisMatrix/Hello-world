@@ -1,4 +1,4 @@
-*.env
 *__pycache__/
 git-sim_media/
 *.DS_Store
+dbfiddles

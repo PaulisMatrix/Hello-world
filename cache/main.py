@@ -1,9 +1,9 @@
 import json
-from redis_client import RedisClient
-from operations import Operations
 import pytz
 from datetime import datetime
 
+from redis_client import RedisClient
+from operations import Operations
 
 class RedisTesting(Operations):
     def __init__(self, redis_client: RedisClient):
@@ -24,7 +24,7 @@ class RedisTesting(Operations):
             print("**YOUR DATA**: ", json.loads(data))
 
     def expire_at(self, when, *args, **kwargs):
-        print("**Expiring the key**", resp)
+        print("**Expiring the key**")
         resp = self.redis_client.expireat(name=self.hash_name, when=when, nx_=True)
 
     def hdel(self, keys, *args, **kwargs):

@@ -13,6 +13,10 @@ class RedisClient(object):
         self.password = os.getenv("REDIS_PASSWORD")
 
         # use connection pooling
+        # you don't need to worry about explicitly closing the connection after say every command
+        # every connection will be released back to the connection pool
+        # ref: https://github.com/redis/redis-py/blob/07fc339b4a4088c1ff052527685ebdde43dfc4be/redis/client.py#L580
+        
         pool = redis.ConnectionPool(
             host=self.host,
             port=self.port,
@@ -25,7 +29,7 @@ class RedisClient(object):
         self.connection = redis.StrictRedis(
             connection_pool=pool, max_connections=10, socket_timeout=100
         )
-        # set idle connections timeout to 100secs
+        # set idle connections timeout to 240secs
         # so if a connection is idle for more than 240secs, close it.
         self.connection.config_set(name="timeout", value=240)
 
