@@ -4,7 +4,7 @@ import shutil
 import jinja2
 import codecs
 
-# Globals #
+# Globals initializations
 
 cwd = os.getcwd()
 script_dir = os.path.dirname(os.path.realpath(__file__))
